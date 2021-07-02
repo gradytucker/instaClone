@@ -10,14 +10,15 @@ import LandingScreen from './components/auth/Landing';
 import RegisterScreen from './components/auth/Register';
 import LoginScreen from './components/auth/Login';
 import MainScreen from './components/Main';
-
+import PostScreen from './components/Main/Post';
+import SaveScreen from './components/Main/Save';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './redux/reducers';
 import thunk from 'redux-thunk';
 
-import PostScreen from './components/Main/Post';
+
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
@@ -90,7 +91,8 @@ export class App extends Component {
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Main">
             <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Post" component={PostScreen} />
+            <Stack.Screen name="Post" component={PostScreen} navigation={this.props.navigation} />
+            <Stack.Screen name="Save" component={SaveScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
