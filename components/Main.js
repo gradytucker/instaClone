@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchUser } from '../redux/actions/index';
 import { fetchUserPosts } from '../redux/actions/index';
+import { fetchUserFollowing } from '../redux/actions/index';
 
 import ActivityScreen from './Main/Activity';
 import ExploreScreen from './Main/Explore';
@@ -26,6 +27,7 @@ export class Main extends Component {
     componentDidMount() {
         this.props.fetchUser();
         this.props.fetchUserPosts();
+        this.props.fetchUserFollowing();
     }
     render() {
         return (
@@ -84,7 +86,7 @@ const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser
 })
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ fetchUser, fetchUserPosts }, dispatch);
+    bindActionCreators({ fetchUser, fetchUserPosts, fetchUserFollowing }, dispatch);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
