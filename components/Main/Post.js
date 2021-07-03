@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { NavigationContainer } from '@react-navigation/native';
 
 
-export default function PostScreen(navigation) {
+export default function PostScreen({ navigation }) {
     const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
     const [hasCameraPermission, setHasCameraPermission] = useState(null);
     const [camera, setCamera] = useState(null);
