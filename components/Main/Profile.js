@@ -15,8 +15,7 @@ function Profile(props) {
                     horizontal={false}
                     data={posts}
                     renderItem={({ item }) => (
-                        <View>
-                            style={styles.containerForImage}
+                        <View style={styles.containerForImage}>
                             <Image
                                 style={styles.image}
                                 source={{ uri: item.downloadURL }}
