@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { fetchUser } from '../redux/actions/index';
 import { fetchUserPosts } from '../redux/actions/index';
 import { fetchUserFollowing } from '../redux/actions/index';
+import { clearData } from '../redux/actions/index';
 
 import ActivityScreen from './Main/Activity';
 import ExploreScreen from './Main/Explore';
@@ -80,13 +81,11 @@ export class Main extends Component {
 }
 
 // functions to bind components to redux and get fetchUser()
-
-
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser
 })
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ fetchUser, fetchUserPosts, fetchUserFollowing }, dispatch);
+    bindActionCreators({ fetchUser, fetchUserPosts, fetchUserFollowing, clearData }, dispatch);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

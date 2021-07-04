@@ -3,6 +3,15 @@ import { USER_STATE_CHANGE, USER_POSTS_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE
 
 require('firebase/firestore')
 
+
+
+export function clearData() {
+    return ((dispatch) => {
+        dispatch({ type: CLEAR_DATA })
+    })
+}
+
+
 // make a call to firestore,
 // get dispatch, check is snapshot exists to get data from database,
 // send dispatch of type user_state and current user which is called to reducer,
