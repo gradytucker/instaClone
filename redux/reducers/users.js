@@ -10,12 +10,15 @@ export const user = (state = initialState, action) => {
         case USERS_DATA_STATE_CHANGE:
             return {
                 ...state,
-                currentUser: action.currentUser
+                users: [...state.users, action.user]
             }
         case USERS_POSTS_STATE_CHANGE:
             return {
                 ...state,
-                posts: action.posts
+                usersLoaded: state.usersLoaded + 1,
+                users: state.users.map(user => user.uid === action.uid ?
+                    { ...user, posts: action.posts } :
+                    user)
             }
 
         default:
