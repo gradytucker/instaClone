@@ -12,6 +12,7 @@ import LoginScreen from './components/auth/Login';
 import MainScreen from './components/Main';
 import PostScreen from './components/Main/Post';
 import SaveScreen from './components/Main/Save';
+import CommentsScreen from './components/Main/Comments';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -93,6 +94,7 @@ export class App extends Component {
             <Stack.Screen name="Main" component={MainScreen} />
             <Stack.Screen name="Post" component={PostScreen} navigation={this.props.navigation} />
             <Stack.Screen name="Save" component={SaveScreen} navigation={this.props.navigation} />
+            <Stack.Screen name="Comments" component={CommentsScreen} navigation={this.props.navigation} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
