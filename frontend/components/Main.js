@@ -1,21 +1,21 @@
 // file that is caused after successful login or registe
-import React, { Component } from '../frontend/node_modules/@types/react'
+import React, { Component } from 'react'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import firebase from '../frontend/node_modules/firebase'
+import firebase from 'firebase'
 import { View, Text } from 'react-native';
-import { connect } from '../frontend/node_modules/@types/react-redux';
-import { bindActionCreators } from '../frontend/node_modules/redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { fetchUser } from './redux/actions';
 import { fetchUserPosts } from './redux/actions';
 import { fetchUserFollowing } from './redux/actions';
 import { clearData } from './redux/actions';
 
-import ActivityScreen from '../frontend/node_modules/components/Main/Activity';
-import ExploreScreen from '../frontend/node_modules/components/Main/Explore';
+import ActivityScreen from 'components/Main/Activity';
+import ExploreScreen from 'components/Main/Explore';
 import FeedScreen from 'components/Main/Feed';
-import ProfileScreen from '../frontend/node_modules/components/Main/Profile';
+import ProfileScreen from 'components/Main/Profile';
 
 
 const Tab = createBottomTabNavigator();

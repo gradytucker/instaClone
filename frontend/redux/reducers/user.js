@@ -1,4 +1,4 @@
-import { USER_POSTS_STATE_CHANGE, USER_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE, CLEAR_DATA } from "../../frontend/node_modules/components/redux/constants"
+import { USER_POSTS_STATE_CHANGE, USER_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE, CLEAR_DATA } from "components/redux/constants"
 
 const initialState = {
     currentUser: null,

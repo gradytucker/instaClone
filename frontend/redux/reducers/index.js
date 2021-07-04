@@ -1,5 +1,5 @@
 
-import { combineReducers } from "../../frontend/node_modules/redux";
+import { combineReducers } from "redux";
 import { user } from 'components/redux/reducers/user'
 import { users } from 'components/redux/reducers/users'
 

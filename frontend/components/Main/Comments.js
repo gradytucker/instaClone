@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from '../../frontend/node_modules/@types/react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, FlatList, Button, TextInput } from 'react-native'
-import firebase from '../../frontend/node_modules/firebase'
-require('../../frontend/node_modules/firebase/empty-import')
+import firebase from 'firebase'
+require('firebase/firestore')
 
-import { connect } from '../../frontend/node_modules/@types/react-redux'
-import { bindActionCreators } from '../../frontend/node_modules/redux'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { fetchUsersData } from '../redux/actions'
 
 

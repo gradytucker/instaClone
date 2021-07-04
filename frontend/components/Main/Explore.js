@@ -1,8 +1,8 @@
-import React, { useState } from '../../frontend/node_modules/@types/react'
+import React, { useState } from 'react'
 import { View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native'
-import firebase from '../../frontend/node_modules/firebase';
+import firebase from 'firebase';
 import { NavigationContainer } from '@react-navigation/native';
-require('../../frontend/node_modules/firebase/empty-import')
+require('firebase/firestore')
 
 export default function ExploreScreen(props) {
     const [users, setUsers] = useState([])

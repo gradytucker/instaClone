@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from '../../frontend/node_modules/@types/react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Text, Image, FlatList, Button, ProgressViewIOSComponent } from 'react-native'
-import { connect } from '../../frontend/node_modules/@types/react-redux'
-import firebase from '../../frontend/node_modules/firebase'
-require('../../frontend/node_modules/firebase/empty-import')
+import { connect } from 'react-redux'
+import firebase from 'firebase'
+require('firebase/firestore')
 
 function Feed(props) {
     const [posts, setPosts] = useState([]);

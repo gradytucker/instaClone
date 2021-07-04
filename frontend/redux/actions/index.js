@@ -1,7 +1,7 @@
-import firebase from '../../frontend/node_modules/firebase'
-import { USER_STATE_CHANGE, USER_POSTS_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE, USERS_DATA_STATE_CHANGE, USERS_POSTS_STATE_CHANGE, USERS_LIKES_STATE_CHANGE } from '../../frontend/node_modules/components/redux/constants'
+import firebase from 'firebase'
+import { USER_STATE_CHANGE, USER_POSTS_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE, USERS_DATA_STATE_CHANGE, USERS_POSTS_STATE_CHANGE, USERS_LIKES_STATE_CHANGE } from 'components/redux/constants'
 
-require('../../frontend/node_modules/firebase/empty-import')
+require('firebase/firestore')
 
 
 
