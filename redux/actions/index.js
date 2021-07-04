@@ -58,7 +58,7 @@ export function fetchUserFollowing() {
                 console.log(following)
                 dispatch({ type: USER_FOLLOWING_STATE_CHANGE, following });
                 for (let i = 0; i < following.length; i++) {
-                    dispatch(fetchUsersData(following[i]));
+                    dispatch(fetchUsersData(following[i], true));
                 }
             })
     })
@@ -67,7 +67,6 @@ export function fetchUserFollowing() {
 export function fetchUsersData(uid, getPosts) {
     return ((dispatch, getState) => {
         const found = getState().usersState.users.some(el => el.uid === uid);
-
         if (!found) {
             firebase.firestore()
                 .collection("users")
@@ -77,8 +76,7 @@ export function fetchUsersData(uid, getPosts) {
                     if (snapshot.exists) {
                         let user = snapshot.data();
                         user.uid = snapshot.id;
-                        dispatch({ type: USERS_DATA_STATE_CHANGE, currentUser: snapshot.data() })
-                        dispatch(fetchUsersFollowingPosts(user.id))
+                        dispatch({ type: USERS_DATA_STATE_CHANGE, user })
                     }
                     else {
                         console.log('snapshot does not exist')
@@ -100,8 +98,11 @@ export function fetchUsersFollowingPosts(uid) {
             .orderBy("creation", "asc")
             .get()
             .then((snapshot) => {
-
-                const uid = snapshot.query.EP.path.segments[1]
+                try {
+                    const uid = snapshot.query.EP.path.segments[1];;
+                } catch {
+                    console.log("no posts")
+                }
                 const user = getState().usersState.users.find(el => el.uid === uid);
 
                 let posts = snapshot.docs.map(doc => {

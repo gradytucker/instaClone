@@ -1,11 +1,11 @@
-import { USERS_DATA_STATE_CHANGE, USERS_POSTS_STATE_CHANGE, } from "../constants"
+import { USERS_DATA_STATE_CHANGE, USERS_POSTS_STATE_CHANGE } from "../constants"
 
 const initialState = {
     users: [],
     usersLoaded: 0
 }
 
-export const user = (state = initialState, action) => {
+export const users = (state = initialState, action) => {
     switch (action.type) {
         case USERS_DATA_STATE_CHANGE:
             return {

@@ -5,7 +5,7 @@ import firebase from 'firebase'
 require('firebase/firestore')
 
 function Feed(props) {
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         let posts = [];
@@ -13,7 +13,7 @@ function Feed(props) {
             for (let i = 0; i < props.following.length; i++) {
                 const user = props.users.find(el => el.uid === props.following[i]);
                 if (user != undefined) {
-                    posts = [...posts, ...user.posts]
+                    posts = [...posts, ...user.posts];
                 }
             }
 
@@ -21,7 +21,7 @@ function Feed(props) {
                 return x.creation - y.creation;
             })
 
-            setPosts(posts)
+            setPosts(posts);
         }
     }, [props.usersLoaded])
 
@@ -35,7 +35,7 @@ function Feed(props) {
                     data={posts}
                     renderItem={({ item }) => (
                         <View style={styles.containerForImage}>
-                            <Text style={{ flex: 1 }}>{item.user.name}</Text>
+                            <Text style={styles.container}>{item.user.name}</Text>
                             <Image
                                 style={styles.image}
                                 source={{ uri: item.downloadURL }}
@@ -51,8 +51,8 @@ function Feed(props) {
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser,
     following: store.userState.following,
-    users: store.userState.users,
-    usersLoaded: store.userState.usersLoaded
+    users: store.usersState.users,
+    usersLoaded: store.usersState.usersLoaded
 })
 
 export default connect(mapStateToProps, null)(Feed);
@@ -61,7 +61,6 @@ export default connect(mapStateToProps, null)(Feed);
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 40
     },
     containerForImage: {
         flex: 1 / 3
