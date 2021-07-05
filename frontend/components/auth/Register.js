@@ -22,7 +22,10 @@ export class Register extends Component {
                     .doc(firebase.auth().currentUser.uid)
                     .set({
                         name,
-                        email
+                        email,
+                        following: 0,
+                        followers: 0,
+                        posts: 0
                     })
             })
             .catch((error) => {

@@ -52,6 +52,12 @@ export default function Save(props, navigation) {
             }).then((function () {
                 props.navigation.popToTop()
             }))
+        firebase.firestore()
+            .collection("users")
+            .doc(firebase.auth().currentUser.uid)
+            .update({
+                posts: firebase.firestore.FieldValue.increment(1)
+            })
     }
 
     return (

@@ -8,6 +8,9 @@ function Profile(props) {
     const [userPosts, setUserPosts] = useState([])
     const [user, setUser] = useState(null)
     const [following, setFollowing] = useState(false)
+    const [postsCount, setPostsCount] = useState(null)
+    const [followingCount, setFollowingCount] = useState(null)
+    const [followerCount, setFollowerCount] = useState(null)
 
 
 
@@ -19,6 +22,9 @@ function Profile(props) {
         if (props.route.params.uid === firebase.auth().currentUser.uid) {
             setUser(currentUser)
             setUserPosts(posts)
+            setPostsCount(postsCount)
+            setFollowingCount(followingCount)
+            setFollowerCount(followerCount)
         }
 
         // if we are trying to access another profile,
@@ -70,6 +76,24 @@ function Profile(props) {
             .collection("userFollowing")
             .doc(props.route.params.uid)
             .set({})
+        firebase.firestore()
+            .collection("followers")
+            .doc(props.route.params.uid)
+            .collection("userFollowers")
+            .doc(firebase.auth().currentUser.uid)
+            .set({})
+        firebase.firestore()
+            .collection("users")
+            .doc(firebase.auth().currentUser.uid)
+            .update({
+                following: firebase.firestore.FieldValue.increment(1)
+            })
+        firebase.firestore()
+            .collection("users")
+            .doc(props.route.params.uid)
+            .update({
+                followers: firebase.firestore.FieldValue.increment(1)
+            })
     }
 
     const onUnfollow = () => {
@@ -79,6 +103,25 @@ function Profile(props) {
             .collection("userFollowing")
             .doc(props.route.params.uid)
             .delete({})
+        firebase.firestore()
+            .collection("followers")
+            .doc(props.route.params.uid)
+            .collection("userFollowers")
+            .doc(firebase.auth().currentUser.uid)
+            .delete({})
+        firebase.firestore()
+            .collection("users")
+            .doc(firebase.auth().currentUser.uid)
+            .update({
+                following: firebase.firestore.FieldValue.increment(-1)
+            })
+        firebase.firestore()
+            .collection("users")
+            .doc(props.route.params.uid)
+            .update({
+                followers: firebase.firestore.FieldValue.increment(-1)
+            })
+
     }
 
     const onLogout = () => {
@@ -93,7 +136,9 @@ function Profile(props) {
         <View style={styles.container}>
             <View style={styles.info}>
                 <Text>{user.name}</Text>
-
+                <Text>posts: {user.posts}</Text>
+                <Text>followers: {user.followers}</Text>
+                <Text>following: {user.following}</Text>
                 {props.route.params.uid !== firebase.auth().currentUser.uid ? (<View>
                     {following ? (<Button
                         title='Following'
@@ -134,7 +179,10 @@ function Profile(props) {
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser,
     posts: store.userState.posts,
-    following: store.userState.following
+    following: store.userState.following,
+    postsCount: store.userState.postsCount,
+    followingCount: store.userState.followingCount,
+    followerCount: store.userState.followerCount
 })
 
 export default connect(mapStateToProps, null)(Profile);

@@ -7,7 +7,7 @@ import firebase from 'firebase'
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchUser, fetchUserPosts, fetchUserFollowing, clearData } from '../redux/actions/index';
+import { fetchUser, fetchUserPosts, fetchUserFollowing, fetchUserFollowingCount, fetchUserPostsCount, fetchUserFollowerCount, clearData } from '../redux/actions/index';
 
 import ActivityScreen from './Main/Activity';
 import ExploreScreen from './Main/Explore';
@@ -27,6 +27,9 @@ export class Main extends Component {
         this.props.fetchUser();
         this.props.fetchUserPosts();
         this.props.fetchUserFollowing();
+        this.props.fetchUserFollowingCount();
+        this.props.fetchUserPostsCount();
+        this.props.fetchUserFollowerCount();
     }
     render() {
         return (
@@ -83,7 +86,7 @@ const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser
 })
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ fetchUser, fetchUserPosts, fetchUserFollowing, clearData }, dispatch);
+    bindActionCreators({ fetchUser, fetchUserPosts, fetchUserFollowing, fetchUserFollowingCount, fetchUserFollowerCount, fetchUserPostsCount, clearData }, dispatch);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

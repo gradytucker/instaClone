@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-import { USER_STATE_CHANGE, USER_POSTS_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE, USERS_DATA_STATE_CHANGE, USERS_POSTS_STATE_CHANGE, USERS_LIKES_STATE_CHANGE, CLEAR_DATA } from '../constants/index'
+import { USER_STATE_CHANGE, USER_POSTS_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE, USERS_DATA_STATE_CHANGE, USER_POSTSCOUNT_STATE_CHANGE, USER_FOLLOWINGCOUNT_STATE_CHANGE, USERS_POSTS_STATE_CHANGE, USERS_LIKES_STATE_CHANGE, USER_FOLLOWERSCOUNT_STATE_CHANGE, CLEAR_DATA } from '../constants/index'
 
 require('firebase/firestore')
 
@@ -53,6 +53,37 @@ export function fetchUserPosts() {
     })
 }
 
+export function fetchUserPostsCount() {
+    return ((dispatch) => {
+        firebase.firestore()
+            .collection("posts")
+            .doc(firebase.auth().currentUser.uid)
+            .collection("userPosts")
+            .orderBy("creation", "asc")
+            .get()
+            .then((snapshot) => {
+                let postsCount = snapshot.docs.length
+                dispatch({ type: USER_POSTSCOUNT_STATE_CHANGE, postsCount })
+            })
+    })
+}
+
+export function fetchUserFollowingCount() {
+    return ((dispatch) => {
+        firebase.firestore()
+            .collection("following")
+            .doc(firebase.auth().currentUser.uid)
+            .collection("userFollowing")
+            .get()
+            .then((snapshot) => {
+                let followingCount = snapshot.docs.length
+                dispatch({ type: USER_FOLLOWINGCOUNT_STATE_CHANGE, followingCount })
+            })
+    })
+}
+
+
+
 export function fetchUserFollowing() {
     return ((dispatch) => {
         firebase.firestore()
@@ -69,6 +100,20 @@ export function fetchUserFollowing() {
                 for (let i = 0; i < following.length; i++) {
                     dispatch(fetchUsersData(following[i], true));
                 }
+            })
+    })
+}
+
+export function fetchUserFollowerCount() {
+    return ((dispatch) => {
+        firebase.firestore()
+            .collection("followers")
+            .doc(firebase.auth().currentUser.uid)
+            .collection("userFollowers")
+            .get()
+            .then((snapshot) => {
+                let followerCount = snapshot.docs.length
+                dispatch({ type: USER_FOLLOWERSCOUNT_STATE_CHANGE, followerCount })
             })
     })
 }
