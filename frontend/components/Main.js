@@ -13,7 +13,7 @@ import ActivityScreen from './Main/Activity';
 import ExploreScreen from './Main/Explore';
 import FeedScreen from './Main/Feed';
 import ProfileScreen from './Main/Profile';
-
+import { StatusBar } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,6 +32,7 @@ export class Main extends Component {
         this.props.fetchUserFollowerCount();
     }
     render() {
+        StatusBar.setBarStyle('dark-content', true);
         return (
             <Tab.Navigator initialRouteName="Feed" tabBarOptions={{ showLabel: false }}>
                 <Tab.Screen name="Feed" component={FeedScreen}

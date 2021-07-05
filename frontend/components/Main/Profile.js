@@ -124,10 +124,13 @@ function Profile(props) {
 
     }
 
+
+
     const onLogout = () => {
         firebase.auth().signOut();
     }
 
+    const onChangeProfilePicture = () => { }
 
     if (user === null) {
         return <View />
@@ -135,10 +138,48 @@ function Profile(props) {
     return (
         <View style={styles.container}>
             <View style={styles.info}>
-                <Text>{user.name}</Text>
-                <Text>posts: {user.posts}</Text>
-                <Text>followers: {user.followers}</Text>
-                <Text>following: {user.following}</Text>
+                <View style={styles.profileUsername}>
+                    <Image
+                        source={{
+                            uri: user.profilePicture
+                        }}
+                        style={styles.profilePicture}
+                        onPress={() => {
+                            if (props.route.params.uid === firebase.auth().currentUser.uid) {
+                                onChangeProfilePicture();
+                            }
+                        }}
+                    />
+                </View>
+                <View style={styles.profileUsername}>
+                    <Text style={{
+                        fontWeight: 'bold',
+                        fontSize: 25,
+                    }}>{user.name}</Text>
+                </View>
+                < View style={styles.profileDetailsContainer}>
+                    < View style={styles.profileDetail}>
+                        <Text style={{
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        }}>{user.posts}</Text>
+                        <Text>{"\n"}Posts</Text>
+                    </View>
+                    < View style={styles.profileDetail}>
+                        <Text style={{
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        }}>{user.followers}</Text>
+                        <Text>{"\n"}Followers</Text>
+                    </View>
+                    < View style={styles.profileDetail}>
+                        <Text style={{
+                            fontWeight: 'bold',
+                            fontSize: 25,
+                        }}>{user.following}</Text>
+                        <Text>{"\n"}Following</Text>
+                    </View>
+                </View>
                 {props.route.params.uid !== firebase.auth().currentUser.uid ? (<View>
                     {following ? (<Button
                         title='Following'
@@ -172,7 +213,7 @@ function Profile(props) {
                     )}
                 />
             </View>
-        </View>
+        </View >
     )
 }
 
@@ -189,22 +230,55 @@ export default connect(mapStateToProps, null)(Profile);
 
 
 const styles = StyleSheet.create({
+    profileUsername: {
+        paddingBottom: 5,
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: "row",
+        justifyContent: 'center',
+        flexShrink: 1,
+
+    },
+    profileDetailsContainer: {
+        paddingTop: 10,
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: "row",
+        justifyContent: 'center',
+    },
+    profileDetail: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        display: "flex",
+        flexShrink: 2,
+        margin: 20
+    },
     container: {
         flex: 1,
         marginTop: 40
     },
     containerForImage: {
-        flex: 1 / 3
+        flex: 1 / 3,
+        padding: 2
     },
     info: {
-        margin: 20
+        margin: 10
     },
     gallery: {
         flex: 1
     },
     image: {
         flex: 1,
-        aspectRatio: 1 / 1
+        aspectRatio: 1 / 1,
+        borderRadius: 10,
+        margin: 1
 
+    },
+    profilePicture: {
+        width: 80,
+        height: 80,
+        borderRadius: 400,
+        borderWidth: 0.5,
+        resizeMode: 'stretch'
     }
 })
