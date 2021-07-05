@@ -8,7 +8,6 @@ function Feed(props) {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        let posts = [];
         if (props.usersFollowingLoaded == props.following.length && props.following.length !== 0) {
             props.feed.sort(function (x, y) {
                 return x.creation - y.creation;
@@ -25,7 +24,15 @@ function Feed(props) {
             .doc(postId)
             .collection("likes")
             .doc(firebase.auth().currentUser.uid)
-            .set({})
+            .set({});
+        firebase.firestore()
+            .collection("posts")
+            .doc(userId)
+            .collection("userPosts")
+            .doc(postId)
+            .update({
+                likes: firebase.firestore.FieldValue.increment(1)
+            });
     }
 
     const onDislikePress = (userId, postId) => {
@@ -37,6 +44,14 @@ function Feed(props) {
             .collection("likes")
             .doc(firebase.auth().currentUser.uid)
             .delete()
+        firebase.firestore()
+            .collection("posts")
+            .doc(userId)
+            .collection("userPosts")
+            .doc(postId)
+            .update({
+                likes: firebase.firestore.FieldValue.increment(-1)
+            });
     }
 
     return (

@@ -5,7 +5,7 @@ require('firebase/firestore')
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchUsersData } from '../redux/actions'
+import { fetchUsersData } from '../../redux/actions/index'
 
 
 function Comments(props) {
@@ -20,16 +20,17 @@ function Comments(props) {
                 if (comments[i].hasOwnProperty('user')) {
                     continue;
                 }
-                const user = props.user.find(x => x.uid === comments[i].creator)
+
+                const user = props.users.find(x => x.uid === comments[i].creator)
                 if (user == undefined) {
-                    props.fetchUserData(comments[i].creator, false)
+                    props.fetchUsersData(comments[i].creator, false)
                 } else {
                     comments[i].user = user
                 }
             }
-
             setComments(comments)
         }
+
 
         if (props.route.params.postId !== postId) {
             firebase.firestore()
@@ -49,9 +50,8 @@ function Comments(props) {
                 })
             setPostId(props.route.params.postId)
         } else {
-            matchUserToComments(comments)
+            matchUserToComment(comments)
         }
-
     }, [props.route.params.postId, props.users])
 
 
@@ -81,23 +81,21 @@ function Comments(props) {
                                 {item.user.name}
                             </Text>
                             : null}
-                        <Text>{item.text}</Text>
+                        <Text>{item.textComment}</Text>
                     </View>
-
                 )}
             />
+
             <View>
                 <TextInput
-                    placeholder='add a comment..'
-                    onChangeText={(text) => setText(text)}
-                />
+                    placeholder='comment...'
+                    onChangeText={(text) => setTextComment(text)} />
                 <Button
-                    onPress={() =>
-                        onCommentSend()}
-                    title="add comment"
-
+                    onPress={() => onCommentSend()}
+                    title="Send"
                 />
             </View>
+
         </View>
     )
 }
@@ -106,7 +104,7 @@ const mapStateToProps = (store) => ({
     users: store.usersState.users
 })
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ fetchUserData }, dispatch);
+    bindActionCreators({ fetchUsersData }, dispatch);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments);

@@ -1,7 +1,7 @@
 import firebase from 'firebase'
-import { USER_STATE_CHANGE, USER_POSTS_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE, USERS_DATA_STATE_CHANGE, USERS_POSTS_STATE_CHANGE, USERS_LIKES_STATE_CHANGE } from '../../frontend/node_modules/components/redux/constants'
+import { USER_STATE_CHANGE, USER_POSTS_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE, USERS_DATA_STATE_CHANGE, USERS_POSTS_STATE_CHANGE, USERS_LIKES_STATE_CHANGE, CLEAR_DATA } from '../constants/index'
 
-require('firebase/empty-import')
+require('firebase/firestore')
 
 
 
@@ -108,7 +108,7 @@ export function fetchUsersFollowingPosts(uid) {
             .get()
             .then((snapshot) => {
                 try {
-                    const uid = snapshot.query.EP.path.segments[1];;
+                    const uid = snapshot.query.EP.path.segments[1];
                 } catch {
                     console.log("no posts")
                 }
@@ -121,7 +121,7 @@ export function fetchUsersFollowingPosts(uid) {
                 })
 
                 for (let i = 0; i < posts.length; i++) {
-                    dispatch(fetchUserFollowingLikes(uid, posts[i].id))
+                    dispatch(fetchUsersFollowingLikes(uid, posts[i].id))
                 }
                 dispatch({ type: USERS_POSTS_STATE_CHANGE, posts, uid })
             })
@@ -137,10 +137,12 @@ export function fetchUsersFollowingLikes(uid, postId) {
             .doc(postId)
             .collection("likes")
             .doc(firebase.auth().currentUser.uid)
-            .get()
             .onSnapshot((snapshot) => {
-                const postId = snapshot.query.ZE.path.segments[3];
-
+                try {
+                    const postId = snapshot.query.ZE.path.segments[3];
+                } catch {
+                    console.log("no likes")
+                }
                 let currentUserLike = false;
                 if (snapshot.exists) {
                     currentUserLike = true;

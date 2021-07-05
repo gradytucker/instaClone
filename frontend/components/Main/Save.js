@@ -8,6 +8,7 @@ require("firebase/firebase-storage")
 
 export default function Save(props, navigation) {
     const [caption, setCaption] = useState("")
+    const [likes, startLikes] = useState(0)
     const uploadImage = async () => {
         const uri = props.route.params.image;
         const response = await fetch(uri)
@@ -46,6 +47,7 @@ export default function Save(props, navigation) {
             .add({
                 downloadURL,
                 caption,
+                likes,
                 creation: firebase.firestore.FieldValue.serverTimestamp()
             }).then((function () {
                 props.navigation.popToTop()
@@ -59,12 +61,13 @@ export default function Save(props, navigation) {
             />
             <TextInput
                 placeholder="enter a caption"
-                onChangeText={(caption) => { setCaption(caption) }}
+                onChangeText={(caption) => { setCaption(caption), setLikes(0); }}
             />
 
             <Button
                 title="Save"
-                onPress={() => uploadImage()}
+                onPress={() =>
+                    uploadImage()}
             />
         </View>
     )

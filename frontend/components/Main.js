@@ -7,15 +7,12 @@ import firebase from 'firebase'
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchUser } from './redux/actions';
-import { fetchUserPosts } from './redux/actions';
-import { fetchUserFollowing } from './redux/actions';
-import { clearData } from './redux/actions';
+import { fetchUser, fetchUserPosts, fetchUserFollowing, clearData } from '../redux/actions/index';
 
-import ActivityScreen from 'components/Main/Activity';
-import ExploreScreen from 'components/Main/Explore';
-import FeedScreen from 'components/Main/Feed';
-import ProfileScreen from 'components/Main/Profile';
+import ActivityScreen from './Main/Activity';
+import ExploreScreen from './Main/Explore';
+import FeedScreen from './Main/Feed';
+import ProfileScreen from './Main/Profile';
 
 
 const Tab = createBottomTabNavigator();
@@ -26,6 +23,7 @@ const EmptyScreen = () => {
 
 export class Main extends Component {
     componentDidMount() {
+        this.props.clearData();
         this.props.fetchUser();
         this.props.fetchUserPosts();
         this.props.fetchUserFollowing();
