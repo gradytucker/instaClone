@@ -31,6 +31,7 @@ function Profile(props) {
             setFollowingCount(followingCount)
             setFollowerCount(followerCount)
             setProfilePicture(currentUser.profilePicture)
+            console.log(profilePicture)
         }
 
         // if we are trying to access another profile,
@@ -73,7 +74,7 @@ function Profile(props) {
             setFollowing(false);
         }
 
-    }, [props.route.params.uid, props.following, props.currentUser.profilePicture])
+    }, [props.route.params.uid, props.following, props.currentUser.profilePicture, props.currentUser])
 
 
 
@@ -154,6 +155,7 @@ function Profile(props) {
         if (!result.cancelled) {
             console.log('got here')
             uploadImage(result.uri);
+            setProfilePicture(result.uri);
         }
     };
 
@@ -195,7 +197,7 @@ function Profile(props) {
             .update({
                 profilePicture: downloadURL
             });
-        setProfilePicture(downloadURL);
+
     }
 
     const onLogout = () => {

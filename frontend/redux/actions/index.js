@@ -21,8 +21,7 @@ export function fetchUser() {
         firebase.firestore()
             .collection("users")
             .doc(firebase.auth().currentUser.uid)
-            .get()
-            .then((snapshot) => {
+            .onSnapshot((snapshot) => {
                 if (snapshot.exists) {
                     dispatch({ type: USER_STATE_CHANGE, currentUser: snapshot.data() })
                 }
