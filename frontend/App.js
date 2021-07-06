@@ -21,6 +21,7 @@ import thunk from 'redux-thunk';
 
 
 
+
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 const firebaseConfig = {
@@ -97,6 +98,7 @@ export class App extends Component {
             <Stack.Screen name="Comments" component={CommentsScreen} navigation={this.props.navigation} />
           </Stack.Navigator>
         </NavigationContainer>
+
       </Provider>
 
 
